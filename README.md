@@ -35,6 +35,11 @@ A clean web app for turning rough ideas into high-quality prompts for LLMs and i
 - Updated UI layout for faster prompt editing and settings control
 - Kept Gemini API key handling server-side for better security
 
+## Latest Update
+
+- Improved prompt generation performance for faster responses.
+- Improved generation reliability so the app consistently returns prompt output.
+
 ## Tech Stack
 
 - React 19
