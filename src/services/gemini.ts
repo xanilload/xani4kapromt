@@ -7,6 +7,9 @@ export interface GeneratePromptParams {
   includeNegative: boolean;
   includeRole: boolean;
   tone: string;
+  responseStyle?: "Serious" | "Simple";
+  noExtraText?: boolean;
+  noFormatting?: boolean;
 }
 
 export interface GeneratedPrompt {
@@ -40,4 +43,9 @@ export async function generatePrompts(params: GeneratePromptParams): Promise<Gen
 export async function enhanceIdea(idea: string): Promise<string> {
   const body = await postJson<{ data?: string }>("/api/enhance", { idea });
   return typeof body.data === "string" && body.data.trim() ? body.data.trim() : idea;
+}
+
+export async function getEnhancementSuggestions(idea: string): Promise<string[]> {
+  const body = await postJson<{ data?: string[] }>("/api/suggestions", { idea });
+  return Array.isArray(body.data) ? body.data.filter((item) => typeof item === "string") : [];
 }

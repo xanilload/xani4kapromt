@@ -36,6 +36,10 @@ function formatError(error) {
 }
 
 function buildPrompt(params) {
+  const responseStyle = params.responseStyle === "Simple" ? "Simple" : "Serious";
+  const noExtraText = params.noExtraText === true;
+  const noFormatting = params.noFormatting === true;
+
   return `
 You are an expert prompt engineer. Your task is to create highly effective, optimized prompts based on the user's idea.
 
@@ -49,6 +53,10 @@ Settings:
 - Include Negative Prompt: ${params.includeNegative ? "Yes" : "No"}
 - Include Role Prefix: ${params.includeRole ? 'Yes (Start with "Act as a [Role]...")' : 'No (Do not include "Act as a..." or role definitions)'}
 - Tone/Style: ${params.tone}
+- Response Style: ${responseStyle}
+- Target AI Constraints:
+  ${noExtraText ? "- Instruct the target AI to provide only the core output with no conversational filler." : "- Default text policy."}
+  ${noFormatting ? "- Instruct the target AI to output raw text without markdown formatting." : "- Default formatting policy."}
 
 Instructions:
 1. Analyze the user's idea and expand it into a detailed, optimized prompt for the target AI model.
@@ -57,8 +65,9 @@ Instructions:
 4. Strictly follow the requested structure/format. For example, if "Single line" is requested, do not use line breaks in the prompt. If "Raw text only" is requested, do not add any conversational filler, just the prompt itself.
 5. If "Include Negative Prompt" is Yes, provide a suitable negative prompt (especially useful for image generators, but can be "Do not..." instructions for LLMs).
 6. If "Include Role Prefix" is Yes, begin the prompt by assigning a persona/role (e.g., "Act as an expert..."). If No, start directly with the task/instructions without any persona assignment.
-7. Return the result as a JSON array of objects. Each object must have a 'prompt' field. It can optionally have a 'negativePrompt' field and an 'explanation' field (briefly explaining why this prompt is effective).
-8. Generate exactly ${params.variantsCount} variant(s).
+7. Match the requested response style: "Serious" means highly technical/professional wording; "Simple" means plain, easy-to-understand wording.
+8. Return the result as a JSON array of objects. Each object must have a 'prompt' field. It can optionally have a 'negativePrompt' field and an 'explanation' field (briefly explaining why this prompt is effective).
+9. Generate exactly ${params.variantsCount} variant(s).
 `;
 }
 

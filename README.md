@@ -20,6 +20,21 @@ A clean web app for turning rough ideas into high-quality prompts for LLMs and i
 > You can generate prompts for ChatGPT, Claude, Gemini, GitHub Copilot, Midjourney, Stable Diffusion, and other LLM/image platforms.
 > This app is a prompt generator: copy the result and use it in your preferred cloud or local AI tool.
 
+## What's New (XaniPromtUpdate)
+
+- Added smarter idea enhancement with quick suggestion chips
+- Added one-click `Restore` to return to the original idea after enhancement
+- Added advanced output controls:
+  - `Response Style` (`Serious` / `Simple`)
+  - `No Extra Text`
+  - `No Formatting`
+- Improved history management:
+  - keep up to 20 items
+  - remove single item
+  - clear all history
+- Updated UI layout for faster prompt editing and settings control
+- Kept Gemini API key handling server-side for better security
+
 ## Tech Stack
 
 - React 19
@@ -62,6 +77,38 @@ npx vercel dev
 ```
 
 Open: `http://localhost:3000`
+
+## Hosting / How to Upload
+
+### 1. Upload to GitHub
+
+```bash
+git add .
+git commit -m "Update XaniPromt"
+git push origin main
+```
+
+### 2. Deploy to Vercel (Recommended)
+
+1. Open Vercel Dashboard and click `Add New -> Project`.
+2. Import `xanilload/xani4kapromt`.
+3. In Project Settings -> Environment Variables, add:
+   - `GEMINI_API_KEY=your_new_key`
+4. Set the variable for `Production`, `Preview`, and `Development`.
+5. Click `Deploy`.
+6. After deploy, open the generated Vercel URL.
+
+### 3. Update After New Changes
+
+Each time you change the code:
+
+```bash
+git add .
+git commit -m "your update message"
+git push origin main
+```
+
+If GitHub is connected to Vercel, deployment starts automatically after each push.
 
 ## Scripts
 
